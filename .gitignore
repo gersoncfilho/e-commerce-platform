@@ -1,0 +1,50 @@
+# ================================
+# 📦 BACKEND (Java / Spring Boot)
+# ================================
+/backend/target/
+**/*.log
+*.class
+*.jar
+*.war
+*.iml
+*.h2.db
+*.db
+*.env
+
+# IDEs
+/.idea/
+/*.iml
+*.swp
+
+# Maven
+.mvn/
+.settings/
+.classpath
+.project
+
+# ================================
+# 💻 FRONTEND (Angular)
+# ================================
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/cache/
+/frontend/.angular/web
+/frontend/.env
+
+# Angular temporary files
+/frontend/tmp/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ================================
+# ⚙️ DOCKER E INFRA
+# ================================
+/docker-compose.override.yml
+.env
+
+# ================================
+# 🔧 SISTEMA
+# ================================
+.DS_Store
+Thumbs.db
