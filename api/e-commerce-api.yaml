@@ -7,48 +7,106 @@ servers:
     - url: http://localhost:8080/api/v1
 paths:
     /products:
-        get:
-          summary: Get all products
-          operationId: getAllProducts
-          tags:
-            - Products
-          parameters:
-            - name: page
-              in: query
-              description: Page number for pagination
-              required: false
-              schema:
-                type: integer
-                default: 1
-            - name: size
-              in: query
-              description: Number of products per page
-              required: false
-              schema:
-                type: integer
-                default: 10
-          responses:
-            '200':
-              description: A list of products
-              content:
-                application/json:
-                  schema:
-                    type: object
-                    properties:
-                      products:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Product'
-                      totalPages:
-                        type: integer
-                      totalElements:
-                        type: integer
-            '500':
-              description: Internal server error
-              content:
-                application/json:
-                  schema:
-                    type: object
-                    properties:
-                      message:
-                        type: string
+          get:
+            summary: Get all products
+            operationId: getAllProducts
+            tags:
+              - Products
+            parameters:
+              - name: page
+                in: query
+                description: Page number for pagination
+                required: false
+                schema:
+                  type: integer
+                  default: 1
+              - name: size
+                in: query
+                description: Number of products per page
+                required: false
+                schema:
+                  type: integer
+                  default: 10
+            responses:
+              '200':
+                description: A list of products
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        products:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Product'
+                        totalPages:
+                          type: integer
+                        totalElements:
+                          type: integer
+              '500':
+                description: Internal server error
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+    /products/by-name:
+      get:
+        summary: Get product by name
+        operationId: getProductByName
+        tags:
+          - Products
+        parameters:
+          - name: name
+            in: query
+            description: Name of the product to search for
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Product details
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Product'
+          '404':
+            description: Product not found
+          '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: uuid
+          description: Unique identifier for the product
+        name:
+          type: string
+          description: Name of the product
+        description:
+          type: string
+          description: Description of the product
+        price:
+          type: number
+          format: float
+          description: Price of the product
+        stock:
+          type: integer
+          description: Available stock for the product
+      required:
+        - id
+        - name
+        - price
+        - description
+        - stock
