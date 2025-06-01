@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.server.ResponseStatusException;
@@ -57,7 +58,7 @@ public class ProductsApiImpl implements ProductsApi {
     try {
       service.deleteById(id);
       return ResponseEntity.noContent().build();
-    } catch (Exception e) {
+    } catch (EmptyResultDataAccessException e) {
       throw new ResponseStatusException(NOT_FOUND, "Produto não encontrado");
     }
   }
