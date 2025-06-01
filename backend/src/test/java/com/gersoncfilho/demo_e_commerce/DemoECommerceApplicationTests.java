@@ -1,4 +1,4 @@
-package com.gersondeveloper.demo_e_commerce;
+package com.gersoncfilho.demo_e_commerce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

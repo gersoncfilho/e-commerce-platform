@@ -8,7 +8,7 @@
 		<version>3.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.gersondeveloper</groupId>
+	<groupId>com.gersoncfilho</groupId>
 	<artifactId>demo-e-commerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo-e-commerce</name>
@@ -27,8 +27,11 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>21</java.version>
+		<maven.compiler.source>23</maven.compiler.source>
+		<maven.compiler.target>23</maven.compiler.target>
+		<java.version>23</java.version>
 		<spring-modulith.version>1.4.0-RC1</spring-modulith.version>
+		<openapi.file>/Users/gersonfilho/dev/java/e-commerce-platform/openapi/e-commerce-api.yaml</openapi.file>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -131,6 +134,22 @@
 			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>2.2.21</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.6</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -146,6 +165,30 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>7.5.0</version>
+				<executions>
+					<execution>
+						<id>generate-spring-server</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${openapi.file}</inputSpec>							<generatorName>spring</generatorName>
+							<output>${project.build.directory}/generated-sources/openapi</output>
+							<apiPackage>com.gersoncfilho.demo_e_commerce.api</apiPackage>
+							<modelPackage>com.gersoncfilho.demo_e_commerce.model</modelPackage>
+							<invokerPackage>com.gersoncfilho.demo_e_commerce.invoker</invokerPackage>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<useSpringBoot3>true</useSpringBoot3>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
