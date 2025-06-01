@@ -36,20 +36,20 @@ public class ProductsApiImpl implements ProductsApi {
       ProductJpa found = service.findById(id);
       return ResponseEntity.ok(mapper.toProduct(found));
     } catch (IllegalArgumentException e) {
-      throw new ResponseStatusException(NOT_FOUND, "Produto não encontrado");
+      throw new ResponseStatusException(NOT_FOUND, "Product not found with id: " + id);
     }
   }
 
   @Override
   public ResponseEntity<Product> updateProduct(UUID id, Product product) {
     try {
-      ProductJpa existing = service.findById(id); // Garante que o produto existe
+      ProductJpa existing = service.findById(id);
       ProductJpa updated = mapper.toProductJpa(product);
-      updated.setId(id); // Garante que estamos atualizando o ID correto
+      updated.setId(id);
       ProductJpa saved = service.save(updated);
       return ResponseEntity.ok(mapper.toProduct(saved));
     } catch (IllegalArgumentException e) {
-      throw new ResponseStatusException(NOT_FOUND, "Produto não encontrado");
+      throw new ResponseStatusException(NOT_FOUND, "Product not found with id: " + id);
     }
   }
 
@@ -59,7 +59,7 @@ public class ProductsApiImpl implements ProductsApi {
       service.deleteById(id);
       return ResponseEntity.noContent().build();
     } catch (EmptyResultDataAccessException e) {
-      throw new ResponseStatusException(NOT_FOUND, "Produto não encontrado");
+      throw new ResponseStatusException(NOT_FOUND, "Product not found with id: " + id);
     }
   }
 
