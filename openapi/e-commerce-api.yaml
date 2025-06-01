@@ -4,85 +4,216 @@ info:
   description: API for managing e-commerce demo operations
   version: 1.0.0
 servers:
-    - url: http://localhost:8080/api/v1
+  - url: http://localhost:8080/api/v1
 paths:
-    /products:
-          get:
-            summary: Get all products
-            operationId: getAllProducts
-            tags:
-              - Products
-            parameters:
-              - name: page
-                in: query
-                description: Page number for pagination
-                required: false
-                schema:
-                  type: integer
-                  default: 1
-              - name: size
-                in: query
-                description: Number of products per page
-                required: false
-                schema:
-                  type: integer
-                  default: 10
-            responses:
-              '200':
-                description: A list of products
-                content:
-                  application/json:
-                    schema:
-                      type: object
-                      properties:
-                        products:
-                          type: array
-                          items:
-                            $ref: '#/components/schemas/Product'
-                        totalPages:
-                          type: integer
-                        totalElements:
-                          type: integer
-              '500':
-                description: Internal server error
-                content:
-                  application/json:
-                    schema:
-                      type: object
-                      properties:
-                        message:
-                          type: string
-    /products/by-name:
-      get:
-        summary: Get product by name
-        operationId: getProductByName
-        tags:
-          - Products
-        parameters:
-          - name: name
-            in: query
-            description: Name of the product to search for
-            required: true
+  /products:
+    post:
+      summary: Create a new product
+      operationId: createProduct
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
             schema:
-              type: string
-        responses:
-          '200':
-            description: Product details
-            content:
-              application/json:
-                schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad request, invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Get all products
+      operationId: getAllProducts
+      tags:
+        - Products
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
                   $ref: '#/components/schemas/Product'
-          '404':
-            description: Product not found
-          '500':
-            description: Internal server error
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /products/{name}:
+    get:
+      summary: Get product by name
+      operationId: getProductByName
+      tags:
+        - Products
+      parameters:
+        - name: name
+          in: path
+          description: Name of the product to search for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /products/{id}:
+    get:
+      summary: Get product by ID
+      operationId: getProductById
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Unique identifier of the product
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      summary: Update a product
+      operationId: updateProduct
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Unique identifier of the product to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    delete:
+      summary: Delete a product
+      operationId: deleteProduct
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Unique identifier of the product to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Product successfully deleted
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 components:
   schemas:
     Product:
@@ -100,7 +231,7 @@ components:
           description: Description of the product
         price:
           type: number
-          format: float
+          format: bigdecimal
           description: Price of the product
         stock:
           type: integer
