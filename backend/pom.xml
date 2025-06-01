@@ -32,6 +32,7 @@
 		<java.version>23</java.version>
 		<spring-modulith.version>1.4.0-RC1</spring-modulith.version>
 		<openapi.file>/Users/gersonfilho/dev/java/e-commerce-platform/openapi/e-commerce-api.yaml</openapi.file>
+		<mapstruct.version>1.6.3</mapstruct.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -150,6 +151,12 @@
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>0.2.6</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -168,7 +175,7 @@
 			<dependency>
 				<groupId>org.mapstruct</groupId>
 				<artifactId>mapstruct-processor</artifactId>
-				<version>1.5.5.Final</version>
+				<version>${mapstruct.version}</version>
 				<scope>provided</scope>
 			</dependency>
 		</dependencies>
@@ -246,6 +253,30 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.44.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+							<goal>apply</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<java>
+						<googleJavaFormat>
+							<version>1.17.0</version>
+						</googleJavaFormat>
+						<includes>
+							<include>src/main/java/**/*.java</include>
+							<include>src/test/java/**/*.java</include>
+						</includes>
+					</java>
 				</configuration>
 			</plugin>
 		</plugins>
