@@ -32,7 +32,7 @@ E-commerce using SpringBoot and Angular
 - TypeScript
 
 # Run the application
-
+docker-compose up --build
 
 ## Backend
 
