@@ -40,7 +40,9 @@ services:
       - app-network
 
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: backend
     depends_on:
       - postgres
@@ -52,16 +54,6 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     ports:
       - "8080:8080"
-    networks:
-      - app-network
-
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    depends_on:
-      - backend
-    ports:
-      - "4200:80"
     networks:
       - app-network
 
