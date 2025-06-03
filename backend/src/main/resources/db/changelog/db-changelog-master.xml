@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog">
+    <changeSet id="1" author="gersoncfilho">
+        <createTable tableName="product">
+            <column name="id" type="UUID" remarks="Unique identifier for the product">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="Name of the product">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1024)" remarks="Description of the product">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(19,2)" remarks="Price of the product">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stock" type="integer" remarks="Available stock for the product">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="product" indexName="idx_product_id" >
+            <column>id</column>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
