@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog">
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="gersoncfilho">
         <createTable tableName="product">
             <column name="id" type="UUID" remarks="Unique identifier for the product">
@@ -18,8 +22,5 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createIndex tableName="product" indexName="idx_product_id" >
-            <column>id</column>
-        </createIndex>
     </changeSet>
 </databaseChangeLog>
