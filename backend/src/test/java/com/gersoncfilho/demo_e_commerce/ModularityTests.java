@@ -5,8 +5,8 @@ import org.springframework.modulith.core.ApplicationModules;
 
 public class ModularityTests {
 
-    @Test
-    public void testModularity() {
-        ApplicationModules.of(DemoECommerceApplication.class).verify();
-    }
+  @Test
+  public void testModularity() {
+    ApplicationModules.of(DemoECommerceApplication.class).verify();
+  }
 }

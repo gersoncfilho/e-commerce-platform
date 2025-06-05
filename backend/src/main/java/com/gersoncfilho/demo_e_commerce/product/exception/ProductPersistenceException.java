@@ -1,7 +1,7 @@
 package com.gersoncfilho.demo_e_commerce.product.exception;
 
-public class ProductPersistenceException extends RuntimeException{
-    public ProductPersistenceException(String message, Throwable cause) {
-        super(message, cause);
-    }
+public class ProductPersistenceException extends RuntimeException {
+  public ProductPersistenceException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }
