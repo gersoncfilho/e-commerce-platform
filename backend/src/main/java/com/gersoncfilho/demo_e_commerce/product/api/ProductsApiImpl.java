@@ -6,12 +6,11 @@ import com.gersoncfilho.demo_e_commerce.api.ProductsApi;
 import com.gersoncfilho.demo_e_commerce.model.Product;
 import com.gersoncfilho.demo_e_commerce.product.domain.ProductJpa;
 import com.gersoncfilho.demo_e_commerce.product.mapper.ProductMapper;
-import com.gersoncfilho.demo_e_commerce.product.service.ProductService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.gersoncfilho.demo_e_commerce.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
